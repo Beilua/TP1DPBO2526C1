@@ -268,11 +268,11 @@ public class Main {
                 System.out.println("absolute cinema. film found:");
                 System.out.println("-----------------------------");
                 System.out.println("[ " + film.getFilmTitle() + " ]");
-                System.out.println("     code: " + film.getFilmCode());
-                System.out.println("     genre: " + film.getFilmGenre());
-                System.out.println("     duration: " + film.getFilmDuration() + " minutes");
-                System.out.println("     ticket price: $" + film.getTicketPrice());
-                System.out.println("     rating: " + film.getFilmRating() + "/10");
+                System.out.println("  code: " + film.getFilmCode());
+                System.out.println("  genre: " + film.getFilmGenre());
+                System.out.println("  duration: " + film.getFilmDuration() + " minutes");
+                System.out.println("  ticket price: $" + film.getTicketPrice());
+                System.out.println("  rating: " + film.getFilmRating() + "/10");
                 System.out.println("-----------------------------\n");
                 return;
             }
