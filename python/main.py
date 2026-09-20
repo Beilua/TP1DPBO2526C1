@@ -16,12 +16,12 @@ def displayFilms(filmList):
     filmNumber = 1
     print('-----------------------------')
     for film in filmList:
-        print(filmNumber, ". [ ", film.getFilmTitle(), " ]")
-        print("     code: ", film.getFilmCode())
-        print("     genre: ", film.getFilmGenre())
-        print("     duration: ", film.getFilmDuration(), " minutes")
-        print("     ticket price: $", film.getTicketPrice())
-        print("     rating: ", film.getFilmRating(), "/10")
+        print(f"{filmNumber}. [ {film.getFilmTitle()} ]")
+        print(f"     code: {film.getFilmCode()}")
+        print(f"     genre: {film.getFilmGenre()}")
+        print(f"     duration: {film.getFilmDuration()} minutes")
+        print(f"     ticket price: ${film.getTicketPrice()}")
+        print(f"     rating: {film.getFilmRating()}/10")
         print('-----------------------------')
         filmNumber += 1
 
@@ -329,12 +329,12 @@ def searchFilm(filmList):
             # print film details
             print("absolute cinema. film found:")
             print('-----------------------------')
-            print("[ ", film.getFilmTitle(), " ]")
-            print("  code: ", film.getFilmCode())
-            print("  genre: ", film.getFilmGenre())
-            print("  duration: ", film.getFilmDuration(), " minutes")
-            print("  ticket price: $", film.getTicketPrice())
-            print("  rating: ", film.getFilmRating(), "/10")
+            print(f"[ {film.getFilmTitle()} ]")
+            print(f"  code: {film.getFilmCode()}")
+            print(f"  genre: {film.getFilmGenre()}")
+            print(f"  duration: {film.getFilmDuration()} minutes")
+            print(f"  ticket price: ${film.getTicketPrice()}")
+            print(f"  rating: {film.getFilmRating()}/10")
             print("-----------------------------\n")
             return
     # error handling if the film code is not found
