@@ -34,9 +34,22 @@ def addFilm(filmList, genres):
     print("\ncode: ", end="")
     # read film code
     code = input()
-    # error handling for film code format
-    while not re.fullmatch(r"CF\d{3}", code):
-        print("non absolute cinema. invalid code. format must be CF000.")
+    # error handling for film code format and duplicates
+    while True:
+        if not re.fullmatch(r"CF\d{3}", code):
+            print("non absolute cinema. invalid code. format must be CF000.\n")
+        else:
+            codeExists = False
+            for film in filmList:
+                if film.getFilmCode() == code:
+                    codeExists = True
+                    break
+
+            if not codeExists:
+                break
+
+            print("non absolute cinema. film code already exists. please enter a different code.\n")
+
         print("code: ", end="")
         code = input()
 
@@ -154,9 +167,22 @@ def updateFilm(filmList, genres):
             # ask and read new film code
             print("new code: ", end="")
             newCode = input()
-            # error handling for film code format
-            while not re.fullmatch(r"CF\d{3}", newCode):
-                print("non absolute cinema. invalid code. format must be CF000.")
+            # error handling for film code format and duplicates
+            while True:
+                if not re.fullmatch(r"CF\d{3}", newCode):
+                    print("non absolute cinema. invalid code. format must be CF000.\n")
+                else:
+                    codeExists = False
+                    for otherFilm in filmList:
+                        if otherFilm is not film and otherFilm.getFilmCode() == newCode:
+                            codeExists = True
+                            break
+
+                    if not codeExists:
+                        break
+
+                    print("non absolute cinema. film code already exists. please enter a different code.\n")
+
                 print("new code: ", end="")
                 newCode = input()
             # update the film's code using setter method
