@@ -1,6 +1,9 @@
 #include <string>
 
+// class to represent a cinema film
 class CinemaFilm {
+
+// private attributes
 private:
 	std::string filmCode;
 	std::string filmTitle;
@@ -10,9 +13,11 @@ private:
 	int filmRating;
 
 public:
+	// empty constructor
 	CinemaFilm() {
 	}
 
+	// constructor with parameters
 	CinemaFilm(std::string filmCode, std::string filmTitle, std::string filmGenre,
 			int filmDuration, int ticketPrice, int filmRating) {
 		this->filmCode = filmCode;
@@ -23,6 +28,7 @@ public:
 		this->filmRating = filmRating;
 	}
 
+	// filmCode getter and setter
 	std::string getFilmCode() {
 		return filmCode;
 	}
@@ -31,6 +37,7 @@ public:
 		this->filmCode = filmCode;
 	}
 
+	// filmTitle getter and setter
 	std::string getFilmTitle() {
 		return filmTitle;
 	}
@@ -39,6 +46,7 @@ public:
 		this->filmTitle = filmTitle;
 	}
 
+	// filmGenre getter and setter
 	std::string getFilmGenre() {
 		return filmGenre;
 	}
@@ -47,6 +55,7 @@ public:
 		this->filmGenre = filmGenre;
 	}
 
+	// filmDuration getter and setter
 	int getFilmDuration() {
 		return filmDuration;
 	}
@@ -55,6 +64,7 @@ public:
 		this->filmDuration = filmDuration;
 	}
 
+	// ticketPrice getter and setter
 	int getTicketPrice() {
 		return ticketPrice;
 	}
@@ -63,6 +73,7 @@ public:
 		this->ticketPrice = ticketPrice;
 	}
 
+	// filmRating getter and setter
 	int getFilmRating() {
 		return filmRating;
 	}
