@@ -1,10 +1,9 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static final List<String> genres = Arrays.asList(
+    private static final String[] genres = {
         "action", "comedy", "drama", "horror", "romance", "sci-fi", "thriller", "documentary",
         "animation", "adventure", "fantasy", "mystery", "musical", "western", "crime", "biography",
         "family", "war", "sport", "history", "news", "reality", "talk show", "game show", "variety",
@@ -16,7 +15,7 @@ public class Main {
         "political thriller", "legal drama", "medical drama", "sports drama", "teen drama", "coming-of-age",
         "road", "buddy", "ensemble cast", "anthology", "experimental narrative", "nonlinear narrative",
         "metafictional", "self-reflexive", "mockumentary style"
-    );
+    };
 
     public static void main(String[] args) {
         ArrayList<CinemaFilm> filmList = new ArrayList<>();
@@ -125,8 +124,8 @@ public class Main {
 
         System.out.print("genre: ");
         String genre = scanner.nextLine();
-        while (!genres.contains(genre.trim().toLowerCase())) {
-            System.out.println("non absolute cinema. invalid genre. please enter a valid genre from this list: " + genres + "\n");
+        while (!Arrays.asList(genres).contains(genre.trim().toLowerCase())) {
+            System.out.println("non absolute cinema. invalid genre. please enter a valid genre from this list: " + Arrays.toString(genres) + "\n");
             System.out.print("genre: ");
             genre = scanner.nextLine();
         }
@@ -197,8 +196,8 @@ public class Main {
 
                 System.out.print("new genre: ");
                 String newGenre = scanner.nextLine();
-                while (!genres.contains(newGenre.trim().toLowerCase())) {
-                    System.out.println("non absolute cinema. invalid genre. please enter a valid genre from this list: " + genres + "\n");
+                while (!Arrays.asList(genres).contains(newGenre.trim().toLowerCase())) {
+                    System.out.println("non absolute cinema. invalid genre. please enter a valid genre from this list: " + Arrays.toString(genres) + "\n");
                     System.out.print("new genre: ");
                     newGenre = scanner.nextLine();
                 }
