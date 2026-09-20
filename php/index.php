@@ -2,6 +2,7 @@
 require_once __DIR__ . '/CinemaFilm.php';
 session_start();
 
+// genre list for validation and dropdown options
 $genres = [
 	'action', 'comedy', 'drama', 'horror', 'romance', 'sci-fi', 'thriller', 'documentary',
 	'animation', 'adventure', 'fantasy', 'mystery', 'musical', 'western', 'crime', 'biography',
@@ -16,10 +17,12 @@ $genres = [
 	'metafictional', 'self-reflexive', 'mockumentary style'
 ];
 
+// initialize film list in session if not already set
 if (!isset($_SESSION['filmList'])) {
 	$_SESSION['filmList'] = [];
 }
 
+// reference to the film list in session for easier access
 $filmList = &$_SESSION['filmList'];
 $errors = [];
 $message = '';
@@ -34,67 +37,90 @@ $formData = [
 	'filmImage' => ''
 ];
 
+// utility functions
 function escapeHtml($value)
 {
 	return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
+// retrieves a film object from the list by its code, or returns null if not found
 function getFilmByCode($filmList, $filmCode)
 {
+    // search for the film in the list by its code
 	foreach ($filmList as $film) {
+        // if found return the film object
 		if ($film->getFilmCode() === $filmCode) {
 			return $film;
 		}
 	}
 
+    // if not found return null
 	return null;
 }
 
+// validates the film data and returns an array of error messages for any invalid fields
 function validateFilmData($data, $genres, $filmList, $editingCode = '')
 {
+    // array to hold error messages
 	$errors = [];
 
+    // error handling if film code does not match the required format
 	if (!preg_match('/^CF\d{3}$/', $data['filmCode'])) {
 		$errors['filmCode'] = 'code must use the format CF000.';
 	}
+    // error handling if film code already exists in the list and is not the one being edited
 	else if ($data['filmCode'] !== $editingCode && getFilmByCode($filmList, $data['filmCode']) !== null) {
 		$errors['filmCode'] = 'this film code already exists.';
 	}
 
+    // error handling if film title is empty
 	if ($data['filmTitle'] === '') {
 		$errors['filmTitle'] = 'title is required.';
 	}
 
+    // error handling if film genre is not in the list of genres
 	if (!in_array($data['filmGenre'], $genres, true)) {
 		$errors['filmGenre'] = 'please select a valid genre.';
 	}
 
+    // error handling if film duration is not a valid integer
 	if (filter_var($data['filmDuration'], FILTER_VALIDATE_INT) === false) {
 		$errors['filmDuration'] = 'duration must be a whole number.';
 	}
+
+    // error handling if film duration is not within the valid range
 	else if ((int) $data['filmDuration'] < 0 || (int) $data['filmDuration'] > 873) {
 		$errors['filmDuration'] = 'duration must be between 0 and 873 minutes.';
 	}
 
+    // error handling if ticket price is not a valid integer
 	if (filter_var($data['ticketPrice'], FILTER_VALIDATE_INT) === false) {
 		$errors['ticketPrice'] = 'ticket price must be a whole number.';
 	}
+
+    // error handling if ticket price is not within the valid range
 	else if ((int) $data['ticketPrice'] < 0 || (int) $data['ticketPrice'] > 500) {
 		$errors['ticketPrice'] = 'ticket price must be between 0 and 500 dollars.';
 	}
 
+    // error handling if film rating is not a valid integer
 	if (filter_var($data['filmRating'], FILTER_VALIDATE_INT) === false) {
 		$errors['filmRating'] = 'rating must be a whole number.';
 	}
+
+    // error handling if film rating is not within the valid range
 	else if ((int) $data['filmRating'] < 0 || (int) $data['filmRating'] > 10) {
 		$errors['filmRating'] = 'rating must be between 0 and 10.';
 	}
 
+    // return the array of error messages
 	return $errors;
 }
 
+// handles the upload of a new film image and returns the path to the uploaded image or the current image if no new image is uploaded
 function saveUploadedImage($file, &$errors, $currentImage = '')
 {
+    // error handling if no file is uploaded and no current image exists
 	if (!isset($file) || $file['error'] === UPLOAD_ERR_NO_FILE) {
 		if ($currentImage === '') {
 			$errors['filmImage'] = 'an image is required.';
@@ -103,11 +129,13 @@ function saveUploadedImage($file, &$errors, $currentImage = '')
 		return $currentImage;
 	}
 
+    // error handling if there is an error during file upload
 	if ($file['error'] !== UPLOAD_ERR_OK) {
 		$errors['filmImage'] = 'the image could not be uploaded.';
 		return $currentImage;
 	}
 
+    // error handling if the uploaded file is not a valid image type
 	$allowedTypes = ['image/jpeg', 'image/png'];
 	$imageType = mime_content_type($file['tmp_name']);
 	if (!in_array($imageType, $allowedTypes, true)) {
@@ -115,29 +143,40 @@ function saveUploadedImage($file, &$errors, $currentImage = '')
 		return $currentImage;
 	}
 
+    // create the images directory if it does not exist
 	$uploadDirectory = __DIR__ . '/images';
 	if (!is_dir($uploadDirectory)) {
 		mkdir($uploadDirectory, 0755, true);
 	}
 
+    // generate a unique filename for the uploaded image and move it to the images directory
 	$extension = $imageType === 'image/png' ? 'png' : 'jpg';
 	$fileName = uniqid('film_', true) . '.' . $extension;
 	$targetPath = $uploadDirectory . '/' . $fileName;
+    // error handling if the uploaded file could not be moved to the target directory
 	if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
 		$errors['filmImage'] = 'the image could not be saved.';
 		return $currentImage;
 	}
 
+    // return the relative path to the uploaded image
 	return 'images/' . $fileName;
 }
 
+// handle form submissions for adding, editing, and deleting films
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
+    // get action from form submission
 	$action = $_POST['action'] ?? '';
 
+    // handle delete action
 	if ($action === 'delete') {
+        // get film code from form submission
 		$filmCode = $_POST['filmCode'] ?? '';
+        // search for film in list
 		foreach ($filmList as $index => $film) {
+            // if found
 			if ($film->getFilmCode() === $filmCode) {
+                // remove film from list
 				unset($filmList[$index]);
 				$filmList = array_values($filmList);
 				$message = 'film has been deleted.';
@@ -145,8 +184,11 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 			}
 		}
 	}
+    // handle edit action
 	else if ($action === 'edit') {
+        // get film code from form submission
 		$filmCode = $_POST['filmCode'] ?? '';
+        // get film object and populate form data for editing
 		$editingFilm = getFilmByCode($filmList, $filmCode);
 		if ($editingFilm !== null) {
 			$formData = [
@@ -160,8 +202,11 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 			];
 		}
 	}
+    // handle save action for adding or updating a film
 	else if ($action === 'save') {
+        // get editing code from form submission
 		$editingCode = $_POST['editingCode'] ?? '';
+        // populate form data from form submission
 		$formData = [
 			'filmCode' => trim($_POST['filmCode'] ?? ''),
 			'filmTitle' => trim($_POST['filmTitle'] ?? ''),
@@ -171,11 +216,15 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 			'filmRating' => trim($_POST['filmRating'] ?? ''),
 			'filmImage' => $_POST['currentImage'] ?? ''
 		];
+        // validate the form data and save the uploaded image if provided
 		$errors = validateFilmData($formData, $genres, $filmList, $editingCode);
 		$formData['filmImage'] = saveUploadedImage($_FILES['filmImage'] ?? null, $errors, $formData['filmImage']);
 
+        // if there are no errors
 		if (empty($errors)) {
+            // if editing an existing film
 			if ($editingCode !== '') {
+                // get the film object by its code and update its properties
 				$film = getFilmByCode($filmList, $editingCode);
 				if ($film !== null) {
 					$film->setFilmCode($formData['filmCode']);
@@ -188,7 +237,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 					$message = 'film has been updated.';
 				}
 			}
+            // if adding a new film
 			else {
+                // instantiate a new CinemaFilm object and add it to the film list
 				$filmList[] = new CinemaFilm(
 					$formData['filmCode'],
 					$formData['filmTitle'],
@@ -201,16 +252,21 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 				$message = 'new film has been added.';
 			}
 
+            // reset form data for the next entry
 			$formData = array_fill_keys(array_keys($formData), '');
 		}
+        // if error and is editing film retrieve film object to repopulate the form
 		else if ($editingCode !== '') {
 			$editingFilm = getFilmByCode($filmList, $editingCode);
 		}
 	}
 }
 
+// get search query
 $searchCode = trim($_GET['search'] ?? '');
+// check if absolute cinema
 $showAbsoluteCinema = isset($_GET['absoluteCinema']);
+// filter the film list based on the search query
 $visibleFilms = $filmList;
 if ($searchCode !== '') {
 	$visibleFilms = array_filter($filmList, function ($film) use ($searchCode) {
