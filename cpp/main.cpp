@@ -145,8 +145,26 @@ void addFilm(vector<CinemaFilm>& filmList, const vector<string>& genres) {
         string code;
         getline(cin, code);
         // error handling for film code format
-        while (!regex_match(code, regex("^CF\\d{3}$"))) {
-            cout << "non absolute cinema. invalid code. format must be CF000.\n";
+        while (true) {
+            if (!regex_match(code, regex("^CF\\d{3}$"))) {
+                cout << "non absolute cinema. invalid code. format must be CF000.\n\n";
+            }
+            else {
+                bool codeExists = false;
+                for (CinemaFilm& film : filmList) {
+                    if (film.getFilmCode() == code) {
+                        codeExists = true;
+                        break;
+                    }
+                }
+
+                if (!codeExists) {
+                    break;
+                }
+
+                cout << "non absolute cinema. film code already exists. please enter a different code.\n\n";
+            }
+
             cout << "code: ";
             getline(cin, code);
         }
@@ -322,8 +340,26 @@ void updateFilm(vector<CinemaFilm>& filmList, const vector<string>& genres) {
                 string newCode;
                 getline(cin, newCode);
                 // error handling for film code format
-                while (!regex_match(newCode, regex("^CF\\d{3}$"))) {
-                    cout << "non absolute cinema. invalid code. format must be CF000.\n";
+                while (true) {
+                    if (!regex_match(newCode, regex("^CF\\d{3}$"))) {
+                        cout << "non absolute cinema. invalid code. format must be CF000.\n\n";
+                    }
+                    else {
+                        bool codeExists = false;
+                        for (CinemaFilm& otherFilm : filmList) {
+                            if (&otherFilm != &film && otherFilm.getFilmCode() == newCode) {
+                                codeExists = true;
+                                break;
+                            }
+                        }
+
+                        if (!codeExists) {
+                            break;
+                        }
+
+                        cout << "non absolute cinema. film code already exists. please enter a different code.\n\n";
+                    }
+
                     cout << "new code: ";
                     getline(cin, newCode);
                 }
