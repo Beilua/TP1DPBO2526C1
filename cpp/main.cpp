@@ -149,6 +149,7 @@ void addFilm(vector<CinemaFilm>& filmList, const vector<string>& genres) {
             if (!regex_match(code, regex("^CF\\d{3}$"))) {
                 cout << "non absolute cinema. invalid code. format must be CF000.\n\n";
             }
+            // error handling if film code already exists
             else {
                 bool codeExists = false;
                 for (CinemaFilm& film : filmList) {
@@ -344,6 +345,7 @@ void updateFilm(vector<CinemaFilm>& filmList, const vector<string>& genres) {
                     if (!regex_match(newCode, regex("^CF\\d{3}$"))) {
                         cout << "non absolute cinema. invalid code. format must be CF000.\n\n";
                     }
+                    // error handling if film code already exists
                     else {
                         bool codeExists = false;
                         for (CinemaFilm& otherFilm : filmList) {
