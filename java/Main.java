@@ -36,11 +36,11 @@ public class Main {
         System.out.println("   ___ (_)  ___     __    ___ ___     _ _          ");
         System.out.println(" /'___)| |/' _ `\\ /'__`\\/' _ ` _ `\\ /'_` )         ");
         System.out.println("( (___ | || ( ) |(  ___/| ( ) ( ) |( (_| | _       ");
-        System.out.println("`\\____)(_)(_) (_)`\\____)(_) (_) (_)`\\__,_)(_)      ");
+        System.out.println("`\\____)(_)(_) (_)`\\____)(_) (_) (_)`\\__,_)(_)      (java edition.)");
 
         System.out.println("\n====================================================");
 
-        System.out.println("__   __                         __   __ ");
+        System.out.println(" __   __                         __   __ ");
         System.out.println("/  ` /  \\  |\\/|  |\\/|  /\\  |\\ | |  \\ /__`");
         System.out.println("\\__, \\__/  |  |  |  | /~~\\ | \\| |__/ .__/\n");
 
