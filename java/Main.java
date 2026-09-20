@@ -1,8 +1,9 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.ArrayList; // a utility class for dynamic arrays
+import java.util.Arrays; // a utility class for array manipulation
+import java.util.Scanner; // a utility class for user input
 
 public class Main {
+    // an array of absolute cinema film genres
     private static final String[] genres = {
         "action", "comedy", "drama", "horror", "romance", "sci-fi", "thriller", "documentary",
         "animation", "adventure", "fantasy", "mystery", "musical", "western", "crime", "biography",
@@ -18,6 +19,7 @@ public class Main {
     };
 
     public static void main(String[] args) {
+        // a dynamic array to store absolute cinema films
         ArrayList<CinemaFilm> filmList = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         
@@ -158,7 +160,30 @@ public class Main {
         }
 
         System.out.print("ticket price (us dollars): ");
-        int ticketPrice = Integer.parseInt(scanner.nextLine());
+        int ticketPrice;
+        while (true) {
+            String ticketPriceInput = scanner.nextLine().trim();
+
+            if (ticketPriceInput.matches("-?\\d+\\.\\d+")) {
+                System.out.println("non absolute cinema. invalid ticket price. no decimal numbers allowed.\n");
+            } else {
+                try {
+                    ticketPrice = Integer.parseInt(ticketPriceInput);
+                    if (ticketPrice < 0) {
+                        System.out.println("non absolute cinema. invalid ticket price. negative numbers are not allowed.");
+                    } else if (ticketPrice > 500) {
+                        System.out.println("non absolute cinema. ticket price cannot be higher than 500 US dollars. please enter a valid ticket price.");
+                    } else {
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("non absolute cinema. invalid ticket price. input is not a valid number.");
+                }
+                System.out.print("\n");
+            }
+
+            System.out.print("ticket price (us dollars): ");
+        }
 
         System.out.print("rating (out of 10): ");
         int rating = Integer.parseInt(scanner.nextLine());
@@ -231,7 +256,31 @@ public class Main {
                 film.setFilmDuration(newDuration);
 
                 System.out.print("new ticket price (us dollars): ");
-                film.setTicketPrice(Integer.parseInt(scanner.nextLine()));
+                int newTicketPrice;
+                while (true) {
+                    String ticketPriceInput = scanner.nextLine().trim();
+
+                    if (ticketPriceInput.matches("-?\\d+\\.\\d+")) {
+                        System.out.println("non absolute cinema. invalid ticket price. no decimal numbers allowed.\n");
+                    } else {
+                        try {
+                            newTicketPrice = Integer.parseInt(ticketPriceInput);
+                            if (newTicketPrice < 0) {
+                                System.out.println("non absolute cinema. invalid ticket price. negative numbers are not allowed.");
+                            } else if (newTicketPrice > 500) {
+                                System.out.println("non absolute cinema. ticket price cannot be higher than 500 US dollars. please enter a valid ticket price.");
+                            } else {
+                                break;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("non absolute cinema. invalid ticket price. input is not a valid number.");
+                        }
+                        System.out.print("\n");
+                    }
+
+                    System.out.print("new ticket price (us dollars): ");
+                }
+                film.setTicketPrice(newTicketPrice);
 
                 System.out.print("new rating (out of 10): ");
                 film.setFilmRating(Integer.parseInt(scanner.nextLine()));
