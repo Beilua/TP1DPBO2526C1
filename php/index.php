@@ -360,7 +360,7 @@ if ($searchCode !== '') {
 								<td><?= escapeHtml($film->getFilmDuration()) ?> min</td>
 								<td>$<?= escapeHtml($film->getTicketPrice()) ?></td>
 								<td><?= escapeHtml($film->getFilmRating()) ?>/10</td>
-								<td><div class="actions"><form method="post"><input type="hidden" name="action" value="edit"><input type="hidden" name="filmCode" value="<?= escapeHtml($film->getFilmCode()) ?>"><button type="submit">edit</button></form><form method="post"><input type="hidden" name="action" value="delete"><input type="hidden" name="filmCode" value="<?= escapeHtml($film->getFilmCode()) ?>"><button class="delete" type="submit">delete</button></form></div></td>
+								<td><div class="actions"><form method="post"><input type="hidden" name="action" value="edit"><input type="hidden" name="filmCode" value="<?= escapeHtml($film->getFilmCode()) ?>"><button type="submit">edit</button></form><form method="post" onsubmit="return confirm('Are you sure you want to delete this film?');"><input type="hidden" name="action" value="delete"><input type="hidden" name="filmCode" value="<?= escapeHtml($film->getFilmCode()) ?>"><button class="delete" type="submit">delete</button></form></div></td>
 							</tr>
 						<?php endforeach; ?>
 						</tbody>
