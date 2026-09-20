@@ -306,9 +306,27 @@ public class Main {
                 // ask and read new film code
                 System.out.print("new code: ");
                 String newCode = scanner.nextLine();
-                // error handling for film code format
-                while (!newCode.matches("CF\\d{3}")) {
-                    System.out.println("non absolute cinema. invalid code. format must be CF000.\n");
+                // error handling for film code format and duplicates
+                while (true) {
+                    if (!newCode.matches("CF\\d{3}")) {
+                        System.out.println("non absolute cinema. invalid code. format must be CF000.\n");
+                    }
+                    else {
+                        boolean codeExists = false;
+                        for (CinemaFilm otherFilm : filmList) {
+                            if (otherFilm != film && otherFilm.getFilmCode().equals(newCode)) {
+                                codeExists = true;
+                                break;
+                            }
+                        }
+
+                        if (!codeExists) {
+                            break;
+                        }
+
+                        System.out.println("non absolute cinema. film code already exists. please enter a different code.\n");
+                    }
+
                     System.out.print("new code: ");
                     newCode = scanner.nextLine();
                 }
