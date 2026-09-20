@@ -186,7 +186,30 @@ public class Main {
         }
 
         System.out.print("rating (out of 10): ");
-        int rating = Integer.parseInt(scanner.nextLine());
+        int rating;
+        while (true) {
+            String ratingInput = scanner.nextLine().trim();
+
+            if (ratingInput.matches("-?\\d+\\.\\d+")) {
+                System.out.println("non absolute cinema. invalid rating. no decimal numbers allowed.\n");
+            } else {
+                try {
+                    rating = Integer.parseInt(ratingInput);
+                    if (rating < 0) {
+                        System.out.println("non absolute cinema. invalid rating. negative numbers are not allowed.");
+                    } else if (rating > 10) {
+                        System.out.println("non absolute cinema. rating cannot be higher than 10. please enter a valid rating.");
+                    } else {
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("non absolute cinema. invalid rating. input is not a valid number.");
+                }
+                System.out.print("\n");
+            }
+
+            System.out.print("rating (out of 10): ");
+        }
 
         CinemaFilm newFilm = new CinemaFilm(
             code,
@@ -283,7 +306,31 @@ public class Main {
                 film.setTicketPrice(newTicketPrice);
 
                 System.out.print("new rating (out of 10): ");
-                film.setFilmRating(Integer.parseInt(scanner.nextLine()));
+                int newRating;
+                while (true) {
+                    String ratingInput = scanner.nextLine().trim();
+
+                    if (ratingInput.matches("-?\\d+\\.\\d+")) {
+                        System.out.println("non absolute cinema. invalid rating. no decimal numbers allowed.\n");
+                    } else {
+                        try {
+                            newRating = Integer.parseInt(ratingInput);
+                            if (newRating < 0) {
+                                System.out.println("non absolute cinema. invalid rating. negative numbers are not allowed.");
+                            } else if (newRating > 10) {
+                                System.out.println("non absolute cinema. rating cannot be higher than 10. please enter a valid rating.");
+                            } else {
+                                break;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("non absolute cinema. invalid rating. input is not a valid number.");
+                        }
+                        System.out.print("\n");
+                    }
+
+                    System.out.print("new rating (out of 10): ");
+                }
+                film.setFilmRating(newRating);
 
                 System.out.println("absolute cinema. film has been updated.\n");
                 return;
