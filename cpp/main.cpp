@@ -9,12 +9,93 @@
 
 using namespace std;
 
-class Main {
-private:
-    static const vector<string> genres;
+void displayFilms(vector<CinemaFilm>& filmList);
+void addFilm(vector<CinemaFilm>& filmList, const vector<string>& genres);
+void updateFilm(vector<CinemaFilm>& filmList, const vector<string>& genres);
+void deleteFilm(vector<CinemaFilm>& filmList);
+void searchFilm(vector<CinemaFilm>& filmList);
+void absoluteCinema();
 
-public:
-    static void displayFilms(vector<CinemaFilm>& filmList) {
+int main() {
+    const vector<string> genres = {
+    "action", "comedy", "drama", "horror", "romance", "sci-fi", "thriller", "documentary",
+    "animation", "adventure", "fantasy", "mystery", "musical", "western", "crime", "biography",
+    "family", "war", "sport", "history", "news", "reality", "talk show", "game show", "variety",
+    "short", "experimental", "silent", "cult", "classic", "independent", "foreign", "art house",
+    "avant-garde", "surrealist", "expressionist", "neo-realist", "postmodernist", "new wave", "dogme 95",
+    "mockumentary", "found footage", "slasher", "psychological thriller", "superhero", "martial arts",
+    "spy", "heist", "disaster", "zombie", "post-apocalyptic", "dystopian", "steampunk", "cyberpunk",
+    "space opera", "time travel", "alternate history", "historical fiction", "biographical drama",
+    "political thriller", "legal drama", "medical drama", "sports drama", "teen drama", "coming-of-age",
+    "road", "buddy", "ensemble cast", "anthology", "experimental narrative", "nonlinear narrative",
+    "metafictional", "self-reflexive", "mockumentary style"
+    };
+    vector<CinemaFilm> filmList;
+
+    cout << "====================================================\n";
+
+    cout << "       ( )                 (_ )        ( )_        " << '\n';
+    cout << "   _ _ | |_     ___    _    | |  _   _ | ,_)   __  " << '\n';
+    cout << " /'_` )| '_`\\ /',__) /'_`\\  | | ( ) ( )| |   /'__`\\" << '\n';
+    cout << "( (_| || |_) )\\__, \\( (_) ) | | | (_) || |_ (  ___/" << '\n';
+    cout << "`\\__,_)(_,__/'(____/`\\___/'(___)`\\___/'`\\__)`\\____)" << '\n';
+    cout << "                                                   " << '\n';
+    cout << "   ___ (_)  ___     __    ___ ___     _ _          " << '\n';
+    cout << " /'___)| |/' _ `\\ /'__`\\/' _ ` _ `\\ /'_` )         " << '\n';
+    cout << "( (___ | || ( ) |(  ___/| ( ) ( ) |( (_| | _       " << '\n';
+    cout << "`\\____)(_)(_) (_)`\\____)(_) (_) (_)`\\__,_)(_)      " << '\n';
+
+    cout << "\n====================================================" << '\n';
+
+    cout << "__   __                         __   __ " << '\n';
+    cout << "/  ` /  \\  |\\/|  |\\/|  /\\  |\\ | |  \\ /__`" << '\n';
+    cout << "\\__, \\__/  |  |  |  | /~~\\ | \\| |__/ .__/\n\n";
+
+    cout << "1. /add (ADD NEW ABSOLUTE CINEMA FILM)" << '\n';
+    cout << "2. /display (DISPLAY ALL ABSOLUTE CINEMA FILM)" << '\n';
+    cout << "3. /update (UPDATE ABSOLUTE CINEMA FILM)" << '\n';
+    cout << "4. /delete (DELETE ABSOLUTE CINEMA FILM)" << '\n';
+    cout << "5. /search (SEARCH ABSOLUTE CINEMA FILM)" << '\n';
+    cout << "6. /??? (HINT: FIRST NAME OF ABSOLUTE CINEMA DIRECTOR)" << '\n';
+    cout << "7. /exit (EXIT)" << '\n';
+
+    cout << "\nenter your command: " << '\n';
+    while (true) {
+        cout << ">> ";
+        string command;
+        getline(cin, command);
+
+        if (command == "/add") {
+            addFilm(filmList, genres);
+        } else if (command == "/display") {
+            displayFilms(filmList);
+        } else if (command == "/update") {
+            updateFilm(filmList, genres);
+        } else if (command == "/delete") {
+            deleteFilm(filmList);
+        } else if (command == "/search") {
+            searchFilm(filmList);
+        } else if (command == "/martin") {
+            absoluteCinema();
+        } else if (command == "/exit") {
+            cout << "                          _  _                      " << '\n';
+            cout << "                         ( )( )                     " << '\n';
+            cout << "   __     _      _      _| || |_    _   _    __     " << '\n';
+            cout << " /'_ `\\ /'_`\\  /'_`\\  /'_` || '_`\\ ( ) ( ) /'__`\\" << '\n';
+            cout << "( (_) |( (_) )( (_) )( (_| || |_) )| (_) |(  ___/ _ " << '\n';
+            cout << "`\\__  |`\\___/'`\\___/'`\\__,_)(_,__/'`\\__, |`\\____)(_)" << '\n';
+            cout << "( )_) |                            ( )_| |          " << '\n';
+            cout << " \\___/'                            `\\___/'          " << '\n';
+            exit(0);
+        } else {
+            cout << "\ninvalid command.\n";
+        }
+    }
+
+    return 0;
+}
+
+void displayFilms(vector<CinemaFilm>& filmList) {
         if (filmList.empty()) {
             cout << "non absolute cinema. no film.\n\n";
             return;
@@ -36,7 +117,7 @@ public:
         cout << "total absolute cinema films: " << filmList.size() << "\n\n";
     }
 
-    static void addFilm(vector<CinemaFilm>& filmList) {
+void addFilm(vector<CinemaFilm>& filmList, const vector<string>& genres) {
         cout << "\ncode: ";
         string code;
         getline(cin, code);
@@ -61,7 +142,7 @@ public:
                 }
                 cout << genres[i];
             }
-            cout << "]\n";
+            cout << "]\n\n";
             cout << "genre: ";
             getline(cin, genre);
         }
@@ -113,7 +194,7 @@ public:
         cout << "absolute cinema. new film has been added.\n\n";
     }
 
-    static void updateFilm(vector<CinemaFilm>& filmList) {
+void updateFilm(vector<CinemaFilm>& filmList, const vector<string>& genres) {
         cout << "\nenter film code to update: ";
         string filmCode;
         getline(cin, filmCode);
@@ -200,7 +281,7 @@ public:
         cout << "non absolute cinema. film with code " << filmCode << " was not found.\n\n";
     }
 
-    static void deleteFilm(vector<CinemaFilm>& filmList) {
+void deleteFilm(vector<CinemaFilm>& filmList) {
         cout << "\nenter film code to delete: ";
         string filmCode;
         getline(cin, filmCode);
@@ -215,7 +296,7 @@ public:
         cout << "non absolute cinema. film with code " << filmCode << " was not found.\n\n";
     }
 
-    static void searchFilm(vector<CinemaFilm>& filmList) {
+void searchFilm(vector<CinemaFilm>& filmList) {
         cout << "\nenter film code to search: ";
         string filmCode;
         getline(cin, filmCode);
@@ -237,7 +318,7 @@ public:
         cout << "non absolute cinema. film with code " << filmCode << " was not found.\n\n";
     }
 
-    static void absoluteCinema() {
+void absoluteCinema() {
         cout << "⠀⠀⢀⠀⣠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀" << '\n';
         cout << "⢀⠀⣿⡂⢹⡇⠀⠀⣰⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀" << '\n';
         cout << "⢸⡇⢸⣇⢸⣇⠀⢀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢾⠀⠀⣯⡀⡆⠀⠀" << '\n';
@@ -265,95 +346,4 @@ public:
         cout << "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⡀⠀⠀⣠⣤⠀⢸⣿⠀⢈⣿⡧⠀⠹⣿⣿⣿⠀⢸⣿⡇⠀⠀⠀⠀⢸⣿⡄⢻⣧⣾⡏⢠⣿⡇⠀⣼⣿⣷⣶⣾⣿⣇⠀⠀⠀⠘⣿⢣⠜⠁⠀⠀" << '\n';
         cout << "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣶⣾⣿⠏⠀⢸⣿⠀⠀⣿⡷⠀⠀⠹⣿⣿⠀⢸⣿⣿⣿⣿⣿⡆⢸⣿⡆⠀⢿⡿⠀⢰⣿⡇⢀⣿⡏⠀⠀⠀⢹⣿⡀⠀⠀⠀⠀⠈⡆⠀⠀⠀" << '\n';
         cout << "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠀⠀⠀⠈⠉⠀⠀⠉⠁⠀⠀⠀⠉⠉⠀⠈⠉⠉⠈⠉⠉⠁⠈⠉⠀⠀⠈⠁⠀⠀⠉⠁⠈⠉⠀⠀⠀⠀⠈⠉⠁⠐⡀⠀⠀⠀⠀⠀⠀⠀\n\n";
-    }
-};
-
-const vector<string> Main::genres = {
-    "action", "comedy", "drama", "horror", "romance", "sci-fi", "thriller", "documentary",
-    "animation", "adventure", "fantasy", "mystery", "musical", "western", "crime", "biography",
-    "family", "war", "sport", "history", "news", "reality", "talk show", "game show", "variety",
-    "short", "experimental", "silent", "cult", "classic", "independent", "foreign", "art house",
-    "avant-garde", "surrealist", "expressionist", "neo-realist", "postmodernist", "new wave", "dogme 95",
-    "mockumentary", "found footage", "slasher", "psychological thriller", "superhero", "martial arts",
-    "spy", "heist", "disaster", "zombie", "post-apocalyptic", "dystopian", "steampunk", "cyberpunk",
-    "space opera", "time travel", "alternate history", "historical fiction", "biographical drama",
-    "political thriller", "legal drama", "medical drama", "sports drama", "teen drama", "coming-of-age",
-    "road", "buddy", "ensemble cast", "anthology", "experimental narrative", "nonlinear narrative",
-    "metafictional", "self-reflexive", "mockumentary style"
-};
-
-class Scanner {
-public:
-    string nextLine() {
-        string line;
-        getline(cin, line);
-        return line;
-    }
-};
-
-int main() {
-    vector<CinemaFilm> filmList;
-    Scanner scanner;
-
-    cout << "====================================================\n";
-
-    cout << "       ( )                 (_ )        ( )_        " << '\n';
-    cout << "   _ _ | |_     ___    _    | |  _   _ | ,_)   __  " << '\n';
-    cout << " /'_` )| '_`\\ /',__) /'_`\\  | | ( ) ( )| |   /'__`\\" << '\n';
-    cout << "( (_| || |_) )\\__, \\( (_) ) | | | (_) || |_ (  ___/" << '\n';
-    cout << "`\\__,_)(_,__/'(____/`\\___/'(___)`\\___/'`\\__)`\\____)" << '\n';
-    cout << "                                                   " << '\n';
-    cout << "   ___ (_)  ___     __    ___ ___     _ _          " << '\n';
-    cout << " /'___)| |/' _ `\\ /'__`\\/' _ ` _ `\\ /'_` )         " << '\n';
-    cout << "( (___ | || ( ) |(  ___/| ( ) ( ) |( (_| | _       " << '\n';
-    cout << "`\\____)(_)(_) (_)`\\____)(_) (_) (_)`\\__,_)(_)      " << '\n';
-
-    cout << "\n====================================================" << '\n';
-
-    cout << "__   __                         __   __ " << '\n';
-    cout << "/  ` /  \\  |\\/|  |\\/|  /\\  |\\ | |  \\ /__`" << '\n';
-    cout << "\\__, \\__/  |  |  |  | /~~\\ | \\| |__/ .__/\n\n";
-
-    cout << "1. /add (ADD NEW ABSOLUTE CINEMA FILM)" << '\n';
-    cout << "2. /display (DISPLAY ALL ABSOLUTE CINEMA FILM)" << '\n';
-    cout << "3. /update (UPDATE ABSOLUTE CINEMA FILM)" << '\n';
-    cout << "4. /delete (DELETE ABSOLUTE CINEMA FILM)" << '\n';
-    cout << "5. /search (SEARCH ABSOLUTE CINEMA FILM)" << '\n';
-    cout << "6. /??? (HINT: FIRST NAME OF ABSOLUTE CINEMA DIRECTOR)" << '\n';
-    cout << "7. /exit (EXIT)" << '\n';
-
-    cout << "\nenter your command: " << '\n';
-    while (true) {
-        cout << ">> ";
-        string command;
-        getline(cin, command);
-
-        if (command == "/add") {
-            Main::addFilm(filmList);
-        } else if (command == "/display") {
-            Main::displayFilms(filmList);
-        } else if (command == "/update") {
-            Main::updateFilm(filmList);
-        } else if (command == "/delete") {
-            Main::deleteFilm(filmList);
-        } else if (command == "/search") {
-            Main::searchFilm(filmList);
-        } else if (command == "/martin") {
-            Main::absoluteCinema();
-        } else if (command == "/exit") {
-            cout << "                          _  _                      " << '\n';
-            cout << "                         ( )( )                     " << '\n';
-            cout << "   __     _      _      _| || |_    _   _    __     " << '\n';
-            cout << " /'_ `\\ /'_`\\  /'_`\\  /'_` || '_`\\ ( ) ( ) /'__`\\" << '\n';
-            cout << "( (_) |( (_) )( (_) )( (_| || |_) )| (_) |(  ___/ _ " << '\n';
-            cout << "`\\__  |`\\___/'`\\___/'`\\__,_)(_,__/'`\\__, |`\\____)(_)" << '\n';
-            cout << "( )_) |                            ( )_| |          " << '\n';
-            cout << " \\___/'                            `\\___/'          " << '\n';
-            exit(0);
-        } else {
-            cout << "\ninvalid command.\n";
-        }
-    }
-
-    return 0;
 }
