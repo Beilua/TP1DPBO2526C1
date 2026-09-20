@@ -1,6 +1,6 @@
 # Janji
 Saya Nabila Attaya Putri Cahyadi dengan NIM 2508355 mengerjakan Tugas Praktikum 1 pada Mata Kuliah Desain dan Pemrograman Berorientasi Objek (DPBO) untuk keberkahan-Nya maka saya tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin
-
+  
 # 📂 Struktur File
 ```text
 TP1DPBO2526C1/
@@ -71,6 +71,7 @@ TP1DPBO2526C1/
         ├── update.jpg
         └── welcome.jpg
 ```
+  
 # 📖 Penjelasan Desain
 Program terdiri dari 1 kelas yaitu CinemaFilm yang memiliki atribut:
 - filmCode (Kode film)
@@ -81,10 +82,10 @@ Program terdiri dari 1 kelas yaitu CinemaFilm yang memiliki atribut:
 - filmRating (Rating film dari 10)
 - filmImage (Gambar film KHUSUS PHP!)
 
-
+  
 # 🔴 Error Handling
-1. command tidak didefinisikan
-2. /add
+### 1. command tidak didefinisikan
+### 2. /add
     - filmCode tidak sesuai format
     - filmCode duplikat
     - filmGenre diluar list yang disediakan
@@ -92,7 +93,7 @@ Program terdiri dari 1 kelas yaitu CinemaFilm yang memiliki atribut:
     - ticketPrice bukan angka, negatif, desimal, atau lebih dari batas
     - filmRating bukan angka, negatif, desimal, atau lebih dari batas
     - filmImage tidak di submit (khusus PHP)
-3. /update
+### 3. /update
     - filmCode tidak sesuai format
     - filmCode duplikat
     - filmGenre diluar list yang disediakan
@@ -100,11 +101,12 @@ Program terdiri dari 1 kelas yaitu CinemaFilm yang memiliki atribut:
     - ticketPrice bukan angka, negatif, desimal, atau lebih dari batas
     - filmRating bukan angka, negatif, desimal, atau lebih dari batas
     - filmImage tidak di sub
-4. /delete, /search
+### 4. /delete, /search
     - filmCode tidak ditemukan
 
+  
 # 📷 Dokumentasi
-1. C++
+## 1. C++
   
 ![Application screenshot](dokumentasi/cpp/welcome.png)
 ![Application screenshot](dokumentasi/cpp/add.png)
@@ -115,7 +117,7 @@ Program terdiri dari 1 kelas yaitu CinemaFilm yang memiliki atribut:
 ![Application screenshot](dokumentasi/cpp/error_handling.png)
 ![Application screenshot](dokumentasi/cpp/exit.png)
   
-2. Java
+## 2. Java
   
 ![Application screenshot](dokumentasi/java/welcome.png)
 ![Application screenshot](dokumentasi/java/add.png)
@@ -126,7 +128,7 @@ Program terdiri dari 1 kelas yaitu CinemaFilm yang memiliki atribut:
 ![Application screenshot](dokumentasi/java/error_handling.png)
 ![Application screenshot](dokumentasi/java/exit.png)
   
-3. Python
+## 3. Python
   
 ![Application screenshot](dokumentasi/python/welcome.png)
 ![Application screenshot](dokumentasi/python/add.png)
@@ -137,7 +139,7 @@ Program terdiri dari 1 kelas yaitu CinemaFilm yang memiliki atribut:
 ![Application screenshot](dokumentasi/python/error_handling.png)
 ![Application screenshot](dokumentasi/python/exit.png)
   
-4. PHP
+## 4. PHP
   
 ![Application screenshot](dokumentasi/php/add1.png)
 ![Application screenshot](dokumentasi/php/add2.png)
