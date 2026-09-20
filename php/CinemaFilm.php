@@ -9,15 +9,17 @@ class CinemaFilm
 	private $filmDuration;
 	private $ticketPrice;
 	private $filmRating;
-
+    private $filmImage;
+    
 	// constructor with parameters
-	public function __construct($filmCode, $filmTitle, $filmGenre, $filmDuration, $ticketPrice, $filmRating) {
+	public function __construct($filmCode, $filmTitle, $filmGenre, $filmDuration, $ticketPrice, $filmRating, $filmImage) {
 		$this->filmCode = $filmCode;
 		$this->filmTitle = $filmTitle;
 		$this->filmGenre = $filmGenre;
 		$this->filmDuration = $filmDuration;
 		$this->ticketPrice = $ticketPrice;
 		$this->filmRating = $filmRating;
+		$this->filmImage = $filmImage;
 	}
 
 	// filmCode getter and setter
@@ -84,6 +86,17 @@ class CinemaFilm
 	public function setFilmRating($filmRating)
 	{
 		$this->filmRating = $filmRating;
+	}
+
+	// filmImage getter and setter
+	public function getFilmImage()
+	{
+		return $this->filmImage;
+	}
+
+	public function setFilmImage($filmImage)
+	{
+		$this->filmImage = $filmImage;
 	}
 }
 ?>
